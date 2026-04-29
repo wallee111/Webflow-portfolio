@@ -13,7 +13,7 @@
       name: "Web & Mobile Design",
       kicker: "Designing the surface people actually touch.",
       body: "Responsive marketing sites, dashboards, and native iOS/Android flows. I sweat the details — type ramp, tap targets, that one weird tablet breakpoint.",
-      tools: ["Figma", "Webflow", "Framer", "Responsive"],
+      tools: ["Figma", "Claude Code", "Antigravity"],
       visual: "device",
     },
     {
@@ -219,11 +219,7 @@
     return (
       <div ref={sectionRef} className="cap-inner">
         <header className="cap-header">
-          <div>
-            <div className="cap-eyebrow">§ 04 — Capabilities</div>
-            <h2 className="cap-title">What I can actually do.</h2>
-          </div>
-          <div className="cap-meta">{SKILLS.length} skills · Updated Apr 2026</div>
+          <h2 className="cap-title">What I can actually do.</h2>
         </header>
 
         <div className="cap-layout">
