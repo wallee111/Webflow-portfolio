@@ -452,7 +452,7 @@
     }, /*#__PURE__*/React.createElement("header", {
       className: "cap-header"
     }, /*#__PURE__*/React.createElement("h2", {
-      className: "cap-title"
+      className: "h2"
     }, "What I can actually do.")), /*#__PURE__*/React.createElement("div", {
       className: "cap-layout"
     }, /*#__PURE__*/React.createElement("ol", {

@@ -219,7 +219,7 @@
     return (
       <div ref={sectionRef} className="cap-inner">
         <header className="cap-header">
-          <h2 className="cap-title">What I can actually do.</h2>
+          <h2 className="h2">What I can actually do.</h2>
         </header>
 
         <div className="cap-layout">
