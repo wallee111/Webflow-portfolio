@@ -1,0 +1,22 @@
+{
+  "devlink": {
+    "rootDir": "./devlink",
+    "cssModules": true,
+    "fileExtensions": {
+      "js": "jsx"
+    }
+  },
+  "library": {
+    "name": "Local React Components",
+    "components": [
+      "./src/components/*.webflow.@(jsx|tsx)"
+    ]
+  },
+  "telemetry": {
+    "global": {
+      "allowTelemetry": false,
+      "lastPrompted": 1772161468922,
+      "version": "1.12.2"
+    }
+  }
+}
