@@ -1,0 +1,316 @@
+/* ─── Capabilities section — production stylesheet ────────────────
+   All rules namespaced under .cap-* so they cannot collide with
+   the rest of your site. Token defaults map to William Do's
+   portfolio palette; override at :root or on .cap-section to retune. */
+
+.cap-section {
+  /* design tokens — override these to retune the section */
+  --cap-bg: #faf6f2;
+  --cap-bg-2: #EFEAE0;
+  --cap-ink: #2A1A14;
+  --cap-ink-2: #3A2E26;
+  --cap-ink-3: #6B5D52;
+  --cap-line: rgba(42, 26, 20, 0.12);
+  --cap-line-2: rgba(42, 26, 20, 0.06);
+  --cap-card: #FBF7F0;
+  --cap-accent: #D9412C;
+
+  --cap-display: 'Clashgrotesk', 'Instrument Serif', Georgia, serif;
+  --cap-sans: 'Clashgrotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --cap-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  display: block;
+  background: var(--cap-bg);
+  color: var(--cap-ink);
+  font-family: var(--cap-sans);
+  padding: 96px 64px 112px;
+  box-sizing: border-box;
+}
+
+.cap-fallback { max-width: 1280px; margin: 0 auto; }
+
+/* keep our descendants inside the type system */
+.cap-section *,
+.cap-section *::before,
+.cap-section *::after { box-sizing: border-box; }
+
+.cap-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.cap-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 56px;
+}
+
+.cap-eyebrow {
+  font-family: var(--cap-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cap-ink-3);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.cap-title {
+  font-family: var(--cap-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  font-size: clamp(40px, 6.4vw, 88px);
+  margin: 0;
+  color: var(--cap-ink);
+  max-width: 12ch;
+}
+
+.cap-meta {
+  font-family: var(--cap-mono);
+  font-size: 11px;
+  color: var(--cap-ink-3);
+  letter-spacing: 0.1em;
+  padding-bottom: 8px;
+  white-space: nowrap;
+}
+
+/* ─── Layout ──────────────────────────────────────────────── */
+.cap-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .cap-section { padding: 56px 24px 72px; }
+  .cap-header { margin-bottom: 28px; }
+  .cap-layout { grid-template-columns: 1fr; gap: 0; }
+  .cap-aside { display: none; }
+}
+
+/* ─── List ────────────────────────────────────────────────── */
+.cap-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--cap-line);
+}
+
+.cap-row {
+  border-bottom: 1px solid var(--cap-line);
+  padding: 20px 0;
+  position: relative;
+  cursor: pointer;
+}
+
+.cap-row-head {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  align-items: center;
+  gap: 20px;
+}
+
+.cap-row-num {
+  font-family: var(--cap-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--cap-ink-3);
+  transition: color .2s;
+}
+
+.cap-row-name {
+  font-family: var(--cap-display);
+  font-weight: 400;
+  font-size: clamp(28px, 3.8vw, 52px);
+  margin: 0;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--cap-ink-2);
+  transition: transform .25s, color .25s, font-style .15s;
+}
+
+.cap-row-aside {
+  font-family: var(--cap-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--cap-ink-3);
+  opacity: 0.4;
+  transition: opacity .2s;
+  white-space: nowrap;
+}
+
+/* active state (hover or click-locked) */
+.cap-row.is-active .cap-row-num { color: var(--cap-accent); }
+.cap-row.is-active .cap-row-name {
+  color: var(--cap-ink);
+  font-style: italic;
+  transform: translateX(8px);
+}
+.cap-row.is-active .cap-row-aside { opacity: 1; }
+
+/* locked indicator (when the user has clicked to pin) */
+.cap-row.is-locked .cap-row-aside::before {
+  content: "● ";
+  color: var(--cap-accent);
+  margin-right: 4px;
+}
+
+/* mobile expansion */
+.cap-row-mobile-body {
+  display: none;
+}
+.cap-row-mobile-toggle {
+  display: none;
+  width: 12px; height: 12px;
+  color: var(--cap-ink-3);
+  transition: transform .25s;
+}
+.cap-row.is-active .cap-row-mobile-toggle { transform: rotate(90deg); }
+
+@media (max-width: 900px) {
+  .cap-row-head { grid-template-columns: 32px 1fr 16px; gap: 12px; }
+  .cap-row-aside { display: none; }
+  .cap-row-mobile-toggle { display: block; }
+  .cap-row-mobile-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .35s cubic-bezier(.2,.7,.3,1);
+  }
+  .cap-row.is-active .cap-row-mobile-body { grid-template-rows: 1fr; }
+  .cap-row-mobile-body > div { overflow: hidden; }
+  .cap-row-mobile-inner {
+    padding: 14px 0 0 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* ─── Aside / preview pane ────────────────────────────────── */
+.cap-aside {
+  position: sticky;
+  top: 80px;
+  background: var(--cap-card);
+  border: 1px solid var(--cap-line);
+  border-radius: 4px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 420px;
+  /* parallax target — JS writes this var on scroll */
+  transform: translate3d(0, var(--cap-parallax, 0px), 0);
+  transition: transform .15s linear;
+  will-change: transform;
+}
+
+.cap-aside-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.cap-aside-bar-label {
+  font-family: var(--cap-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--cap-ink-3);
+}
+.cap-aside-bar-dot {
+  width: 8px; height: 8px; border-radius: 4px; background: var(--cap-accent);
+  animation: cap-blink 1.6s ease-in-out infinite;
+}
+
+.cap-aside-visual {
+  height: 220px;
+  background: var(--cap-bg);
+  border: 1px solid var(--cap-line-2);
+  border-radius: 3px;
+  color: var(--cap-ink-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cap-aside-name {
+  font-family: var(--cap-display);
+  font-size: 36px;
+  margin: 0;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+}
+
+.cap-aside-body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--cap-ink-2);
+  text-wrap: pretty;
+}
+.cap-aside-body strong { color: var(--cap-ink); font-weight: 500; }
+
+.cap-tools {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--cap-line);
+}
+.cap-tool {
+  font-family: var(--cap-mono);
+  font-size: 10px;
+  color: var(--cap-ink-2);
+  padding: 4px 8px;
+  border: 1px solid var(--cap-line);
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+
+/* mobile body uses a smaller version of the aside chrome */
+.cap-mobile-visual {
+  height: 140px;
+  background: var(--cap-bg);
+  border: 1px solid var(--cap-line-2);
+  border-radius: 3px;
+  color: var(--cap-ink-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.cap-mobile-body {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--cap-ink-2);
+  text-wrap: pretty;
+}
+.cap-mobile-body strong { color: var(--cap-ink); font-weight: 500; }
+.cap-mobile-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+/* ─── Animations ──────────────────────────────────────────── */
+@keyframes cap-blink   { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
+@keyframes cap-spin    { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+@keyframes cap-pulse   { 0%,100% { opacity: .35; transform: scale(1); } 50% { opacity: 1; transform: scale(1.04); } }
+@keyframes cap-cursor  { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+@keyframes cap-stroke  { 0% { stroke-dashoffset: 200; } 100% { stroke-dashoffset: 0; } }
+@keyframes cap-scan-d  { 0%,100% { y: 26; } 50% { y: 92; } }
+@keyframes cap-scan-p  { 0%,100% { y: 44; } 50% { y: 92; } }
+@keyframes cap-tap     { 0%,100% { transform: scale(1); } 30% { transform: scale(.85); } }
+
+/* respect reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .cap-aside { transform: none !important; transition: none; }
+  .cap-aside-bar-dot,
+  .cap-aside-visual *,
+  .cap-mobile-visual * { animation-duration: 0s !important; }
+}
