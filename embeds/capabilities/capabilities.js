@@ -12,7 +12,7 @@
     name: "Web & Mobile Design",
     kicker: "Designing the surface people actually touch.",
     body: "Responsive marketing sites, dashboards, and native iOS/Android flows. I sweat the details — type ramp, tap targets, that one weird tablet breakpoint.",
-    tools: ["Figma", "Webflow", "Framer", "Responsive"],
+    tools: ["Figma", "Claude Code", "Antigravity"],
     visual: "device"
   }, {
     id: "logo-brand",
@@ -451,13 +451,9 @@
       className: "cap-inner"
     }, /*#__PURE__*/React.createElement("header", {
       className: "cap-header"
-    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-      className: "cap-eyebrow"
-    }, "\xA7 04 \u2014 Capabilities"), /*#__PURE__*/React.createElement("h2", {
+    }, /*#__PURE__*/React.createElement("h2", {
       className: "cap-title"
     }, "What I can actually do.")), /*#__PURE__*/React.createElement("div", {
-      className: "cap-meta"
-    }, SKILLS.length, " skills \xB7 Updated Apr 2026")), /*#__PURE__*/React.createElement("div", {
       className: "cap-layout"
     }, /*#__PURE__*/React.createElement("ol", {
       className: "cap-list",
