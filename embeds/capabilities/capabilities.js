@@ -454,7 +454,7 @@
     }, /*#__PURE__*/React.createElement("h2", {
       className: "h2"
     }, "What I can actually do.")), /*#__PURE__*/React.createElement("div", {
-      className: "cap-layout"
+      className: "h2"
     }, /*#__PURE__*/React.createElement("ol", {
       className: "cap-list",
       onMouseLeave: onRowLeave

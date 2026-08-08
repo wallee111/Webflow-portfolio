@@ -1,0 +1,210 @@
+/* ─── Other Projects — editorial hover list with fixed thumbnail pane ────
+   All rules namespaced under .op-* so they cannot collide with the site.
+   Palette + type inherit from the site defaults; overridable at :root. */
+
+.op-root {
+  --op-bg: transparent;
+  --op-ink: #1a1a1a;
+  --op-ink-dim: rgba(26, 26, 26, 0.35);
+  --op-line: rgba(26, 26, 26, 0.12);
+  --op-accent: #D9412C;
+  --op-display: Gambarino, Georgia, serif;
+  --op-sans: Clashgrotesk, Verdana, sans-serif;
+  --op-mono: ui-monospace, "SF Mono", Menlo, monospace;
+
+  display: block;
+  color: var(--op-ink);
+  font-family: var(--op-sans);
+  box-sizing: border-box;
+  padding: 24px 0 64px;
+}
+
+.op-root *,
+.op-root *::before,
+.op-root *::after { box-sizing: border-box; }
+
+.op-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+/* ─── List ───────────────────────────────────────────── */
+.op-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--op-line);
+}
+
+.op-row {
+  border-bottom: 1px solid var(--op-line);
+  padding: 22px 0;
+  cursor: pointer;
+  position: relative;
+  /* entrance state */
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.9s cubic-bezier(.2,.7,.3,1),
+    transform 0.9s cubic-bezier(.2,.7,.3,1);
+}
+.op-row.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.op-row-head {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  align-items: baseline;
+  gap: 24px;
+}
+
+.op-row-num {
+  font-family: var(--op-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--op-ink-dim);
+  transition: color 0.3s ease;
+}
+
+.op-row-title {
+  font-family: var(--op-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(32px, 4.6vw, 64px);
+  margin: 0;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--op-ink-dim);
+  transition: color 0.35s ease, transform 0.35s cubic-bezier(.2,.7,.3,1);
+}
+
+.op-row-meta {
+  font-family: var(--op-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--op-ink-dim);
+  white-space: nowrap;
+  opacity: 0.6;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+/* dim non-hovered rows while hovering the list */
+.op-list.is-hovering .op-row .op-row-title { color: var(--op-ink-dim); }
+.op-list.is-hovering .op-row .op-row-num,
+.op-list.is-hovering .op-row .op-row-meta { opacity: 0.35; }
+
+/* active row (either hovered, or default first) */
+.op-row.is-active .op-row-num { color: var(--op-accent); opacity: 1; }
+.op-row.is-active .op-row-title {
+  color: var(--op-ink);
+  transform: translateX(10px);
+}
+.op-row.is-active .op-row-meta { opacity: 1; color: var(--op-ink); }
+
+/* ─── Thumbnail pane ────────────────────────────────── */
+.op-pane {
+  position: sticky;
+  top: 96px;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--op-line);
+}
+
+.op-thumb {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.06);
+  transition:
+    opacity 0.45s cubic-bezier(.2,.7,.3,1),
+    transform 0.9s cubic-bezier(.2,.7,.3,1);
+  will-change: opacity, transform;
+}
+.op-thumb.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* subtle floating gradient overlay so thumbs read as premium */
+.op-pane::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.18));
+  pointer-events: none;
+}
+
+/* label chip in the corner of the pane */
+.op-pane-label {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  z-index: 2;
+  color: #fff;
+  font-family: var(--op-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 9px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.op-pane-label.is-visible { opacity: 1; transform: translateY(0); }
+
+/* ─── Mobile ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .op-root { padding: 16px 0 48px; }
+  .op-layout { grid-template-columns: 1fr; gap: 24px; }
+  .op-pane { display: none; }
+  .op-row { padding: 18px 0; }
+  .op-row-head {
+    grid-template-columns: 32px 1fr;
+    gap: 14px;
+  }
+  .op-row-meta { display: none; }
+  .op-mobile-thumb {
+    margin-top: 12px;
+    margin-left: 46px;
+    aspect-ratio: 4 / 3;
+    background-size: cover;
+    background-position: center;
+    border-radius: 4px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(.2,.7,.3,1), opacity 0.3s ease;
+  }
+  .op-row.is-active .op-mobile-thumb {
+    max-height: 260px;
+    opacity: 1;
+  }
+}
+
+@media (min-width: 901px) {
+  .op-mobile-thumb { display: none; }
+}
+
+/* ─── Reduced motion ─────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .op-row,
+  .op-row-title,
+  .op-thumb,
+  .op-pane-label,
+  .op-mobile-thumb { transition: none !important; }
+  .op-row { opacity: 1; transform: none; }
+  .op-thumb.is-active { transform: none; }
+}
