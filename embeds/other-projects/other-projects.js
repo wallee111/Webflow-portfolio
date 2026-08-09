@@ -4,10 +4,10 @@
 (function () {
   const PROJECTS = [
     {
-      id: "airhouse",
+      id: "motion-animation",
       num: "01",
-      title: "Airhouse",
-      meta: "Web · 2025",
+      title: "Motion Animation Video (Ae)",
+      meta: "Motion Animation · 2025",
       thumb: "https://picsum.photos/seed/willdo-airhouse/1200/900",
     },
     {
