@@ -8,13 +8,13 @@
       num: "01",
       title: "Motion Animation Video (Ae)",
       meta: "Motion Animation · 2025",
-      thumb: "https://picsum.photos/seed/willdo-airhouse/1200/900",
+      thumb: "https://cdn.prod.website-files.com/67b14fd34a99640666c06139/6a56a206812a68941ee517b6_5T2A5572.jpg",
     },
     {
-      id: "northstar",
+      id: "test",
       num: "02",
-      title: "Northstar",
-      meta: "Brand · 2024",
+      title: "test",
+      meta: "as · 2024",
       thumb: "https://picsum.photos/seed/willdo-northstar/1200/900",
     },
     {
